@@ -15,8 +15,8 @@ const COLUMN_COUNT = 3;
 
 /*----- app's state (variables) -----*/
 let player  = {
-    '0': 'O',
-    '1': 'X'
+    one: 'O',
+    two: 'X'
 }
 
 let isPlayerOneTurn = true;
@@ -25,7 +25,19 @@ let boardEl = document.getElementById('board');
 /*----- cached element references -----*/
 
 /*----- event listeners -----*/
-
+boardEl.addEventListener('click', handleLetterClick);
+/*----- functions -----*/
+function handleLetterClick(evt){
+    console.log(evt.target.id);
+    if (isPlayerOneTurn){
+        evt.target.textContent = player.one;
+    }
+    else{
+        evt.target.textContent = player.two;
+    }
+    isPlayerOneTurn = !isPlayerOneTurn;
+    
+};
 
 function createBoard(){
     

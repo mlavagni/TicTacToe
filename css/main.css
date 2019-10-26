@@ -4,23 +4,35 @@
   }
 body{
     text-align: center; 
-
+    height: 100%;
+    width: 100%;
 }
 
 h1{
     text-align: center;
 }
 
-
+#fistDiv{
+    padding: 0;
+    margin: 0;
+    /* margin: 0 auto; */
+    /* height: 100%;
+    width: 100%; */
+    display: flex;
+    justify-items: center;
+    /* background-color: blue; */
+}
 .ticTic{
+    margin-right: 16px;
+    margin-right: 16px;
     align-content: center;
     text-align: center;
     display: grid;
     grid-template-columns: 50px 50px 50px;
     align-items: center;
     justify-content: center;
-    font-size: 4rem;
-    padding: 10px;
+    font-size: 3rem;
+    /* padding: 10px; */
     color: chartreuse;
     /* border-collapse: collapse; */
  
@@ -28,12 +40,14 @@ h1{
 }
 #board{
     border: 8px solid #659DF7;
-    
-    width: 60%;
-    height: 60%; 
-     align-items: center;
-     background-color: black; 
-     border-radius: 10%;
+    margin: 0 auto;
+    width: 190px;
+    height: 190px; 
+    border-radius: 10px;
+    padding: 0;
+    background-color: black;
+    /* text-align: center; */
+     justify-items: center;
 }
 
 
@@ -45,25 +59,38 @@ p {
     /* justify-items: center; */
      
     /* align-content: center ; */
-    font-size: 2rem;
+    font-size: 3rem;
 }
 .id1, .id2, .id3,.id4, .id5, .id6, .id7, .id8, .id9{
-    min-height: 55px;
-    min-width: 55px;
+    min-height: 60px;
+    min-width: 60px;
     border: 2px solid #659DF7;
-
+    /* margin: 0; */
+     
+    /* padding: 10; */
 }
-
+/* .id2, .id5, .id8{
+    margin-left: 0;
+} */
 .id1, .id4, .id7{
-border-left: 0;
+    text-align: center;
+    border-left: 0;
+    border-right: 0;
+/* padding-right: 12px;; */
 }
 .id3, .id6, .id9{
     border-right: 0;
+    border-left: 0;
 }
 .id7, .id8, .id9{
     border-bottom: 0;
+    border-top: 0;
 }
 .id1, .id2, .id3{
-    border-top: 0;
+    border-top: 0; 
+    border-bottom: 0; 
     }
-
+div{
+    border-collapse: collapse;
+    
+}

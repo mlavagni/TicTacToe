@@ -21,11 +21,16 @@ let player  = {
 
 let isPlayerOneTurn = true;
 let boardCreaded = false;
+
 /*----- cached element references -----*/
 const boardEl = document.getElementById('board');
 const allCellsGrid = boardEl.getElementsByTagName("div");
+const playerTurn = document.getElementById("player");
+const winnerEl = document.getElementById("winner");
+
 /*----- event listeners -----*/
 boardEl.addEventListener('click', handleLetterClick);
+
 /*----- functions -----*/
 function handleLetterClick(evt){
     if(!gameOver) {
@@ -37,6 +42,8 @@ function handleLetterClick(evt){
 function render(){
     if (!boardCreaded) createBoard();
     findTheWinner(addNumbersToArray());
+
+    playerTurn.textContent = isPlayerOneTurn ? 1 : 2;
 }
 
 //adding numbers to the array to check in findThe Winner who won
@@ -58,14 +65,14 @@ function findTheWinner(arrayNumbersGrid){
         var countWinner = 0;
         for (let i2 = 0; i2 < arrayNumbersGrid.length; i2++){
             if (WINNER_ARRAY_NUNBERS[i].includes(arrayNumbersGrid[i2])){
-                console.log( 'winner num ' + WINNER_ARRAY_NUNBERS[i] + ' array ' + arrayNumbersGrid[i2])
+                //console.log( 'winner num ' + WINNER_ARRAY_NUNBERS[i] + ' array ' + arrayNumbersGrid[i2])
                 countWinner++;
-                console.log('count winer ' + countWinner);
+                //console.log('count winer ' + countWinner);
                 if (countWinner === 3){
                     if (isPlayerOneTurn){
-                        console.log('Player Num 1 Wins')  
+                        winnerEl.textContent = "Player Num 1 Wins"; 
                      } else{
-                        console.log('Player Num 2 Wins')
+                        winnerEl.textContent = 'Player Num 2 Wins';
                      }
                      gameOver = true;
                      return;
@@ -86,12 +93,13 @@ function createBoard() {
             keyNumber++;
             let divEl = document.createElement('div');
             divEl.setAttribute("id",keyNumber.toString());
-            divEl.setAttribute("class",'"ticTic');
-            divEl.textContent = keyNumber;
+            //divEl.setAttribute("class",'"ticTic');
+            divEl.classList.add(`id${keyNumber.toString()}`,'"ticTic');
+            //divEl.textContent = keyNumber;
             boardEl.appendChild(divEl);
         }
     }
     boardCreaded = true;
 }
 
-createBoard();
+render();

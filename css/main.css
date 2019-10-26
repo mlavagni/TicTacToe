@@ -1,16 +1,16 @@
 
+* {
+    box-sizing: border-box;
+  }
+body{
+    text-align: center; 
 
+}
 
 h1{
     text-align: center;
 }
-#board{
-    border-color: white;;
-    width: 100%;
-    height: 100%;
-     align-items: center;
 
-}
 
 .ticTic{
     align-content: center;
@@ -21,18 +21,49 @@ h1{
     justify-content: center;
     font-size: 4rem;
     padding: 10px;
+    color: chartreuse;
+    /* border-collapse: collapse; */
  
  
 }
-
-
-div{
-    border: 2px solid black;
+#board{
+    border: 8px solid #659DF7;
     
+    width: 60%;
+    height: 60%; 
+     align-items: center;
+     background-color: black; 
+     border-radius: 10%;
 }
 
 
+p {
+    /* margin: 0 auto; */
+    margin-left: 50px;
+    display: inline; 
+    /* text-justify: auto; */
+    /* justify-items: center; */
+     
+    /* align-content: center ; */
+    font-size: 2rem;
+}
+.id1, .id2, .id3,.id4, .id5, .id6, .id7, .id8, .id9{
+    min-height: 55px;
+    min-width: 55px;
+    border: 2px solid #659DF7;
 
+}
 
-
+.id1, .id4, .id7{
+border-left: 0;
+}
+.id3, .id6, .id9{
+    border-right: 0;
+}
+.id7, .id8, .id9{
+    border-bottom: 0;
+}
+.id1, .id2, .id3{
+    border-top: 0;
+    }
 

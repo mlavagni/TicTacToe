@@ -20,37 +20,40 @@ let player  = {
 }
 
 let isPlayerOneTurn = true;
-
+let boardCreaded = false;
 /*----- cached element references -----*/
 const boardEl = document.getElementById('board');
+const allCellsGrid = boardEl.getElementsByTagName("div");
 /*----- event listeners -----*/
 boardEl.addEventListener('click', handleLetterClick);
 /*----- functions -----*/
 function handleLetterClick(evt){
     if(!gameOver) {
         (isPlayerOneTurn) ? evt.target.textContent = player.one : evt.target.textContent = player.two;
-        findTheWinner();
+        render();
     }
 };
 
 function render(){
-
+    if (!boardCreaded) createBoard();
+    findTheWinner(addNumbersToArray());
 }
-function findTheWinner(){
+
+//adding numbers to the array to check in findThe Winner who won
+function addNumbersToArray(){
     let arrayNumbersGrid = [];
-    let allCellsGrid = boardEl.getElementsByTagName("div");
-    //boardEl = document.getElementById('board');
     for (let i = 0; i < allCellsGrid.length; i++ ){
         if (isPlayerOneTurn){
-            
             if (player.one === allCellsGrid[i].textContent)
                 arrayNumbersGrid.push(allCellsGrid[i].id) 
-            
             }else if (player.two === allCellsGrid[i].textContent){
                 arrayNumbersGrid.push(allCellsGrid[i].id)
             }     
     }
-    
+    return arrayNumbersGrid
+}
+
+function findTheWinner(arrayNumbersGrid){
     for (let i = 0; i < WINNER_ARRAY_NUNBERS.length; i++){
         var countWinner = 0;
         for (let i2 = 0; i2 < arrayNumbersGrid.length; i2++){
@@ -74,16 +77,12 @@ function findTheWinner(){
  
     isPlayerOneTurn = !isPlayerOneTurn;
 }
-  
 
-    function createBoard(){
-    
-       // key for each cell in the grid 
+function createBoard() {
+    // key for each cell in the grid 
     let keyNumber = 0;
     for (let iR=1; iR<= ROW_COUNT; iR++){
-        console.log('hello');
         for (let iC=1; iC<= COLUMN_COUNT; iC++){
-            console.log('helloe2');
             keyNumber++;
             let divEl = document.createElement('div');
             divEl.setAttribute("id",keyNumber.toString());
@@ -92,6 +91,7 @@ function findTheWinner(){
             boardEl.appendChild(divEl);
         }
     }
+    boardCreaded = true;
 }
 
 createBoard();

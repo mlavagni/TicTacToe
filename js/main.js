@@ -1,13 +1,13 @@
 /*----- constants -----*/
 const WINNER_ARRAY_NUNBERS = [
-    1,2,3,
-    4,5,6,
-    7,8,9,
-    1,4,7,
-    2,5,8,
-    3,6,9,
-    1,5,9,
-    3,5,7,
+    ['1', '2', '3'],
+    ['4', '5', '6'],
+    ['7', '8', '9'],
+    ['1', '4', '7'],
+    ['2', '5', '8'],
+    ['3', '6', '9'],
+    ['1', '5', '9'],
+    ['3', '5', '7'],
 ];
 var gameOver = false;
 const ROW_COUNT = 3;
@@ -41,10 +41,13 @@ function handleLetterClick(evt){
 }
 };
 
+function render(){
+
+}
 function findTheWinner(){
     let arrayNumbersGrid = [];
     let allCellsGrid = boardEl.getElementsByTagName("div");
-    boardEl = document.getElementById('board');
+    //boardEl = document.getElementById('board');
     for (let i = 0; i < allCellsGrid.length; i++ ){
         if (isPlayerOneTurn){
             
@@ -57,36 +60,26 @@ function findTheWinner(){
     }
     
     for (let i = 0; i < WINNER_ARRAY_NUNBERS.length; i++){
-        var countWinner = 1;
+        var countWinner = 0;
         for (let i2 = 0; i2 < arrayNumbersGrid.length; i2++){
-        //if (arrayNumbersGrid[i2].includes(WINNER_ARRAY_NUNBERS[i])){
             if (WINNER_ARRAY_NUNBERS[i].includes(arrayNumbersGrid[i2])){
-           // if (WINNER_ARRAY_NUNBERS.includes(arrayNumbersGrid)){
-            countWinner++;
+                console.log( 'winner num ' + WINNER_ARRAY_NUNBERS[i] + ' array ' + arrayNumbersGrid[i2])
+                countWinner++;
+                console.log('count winer ' + countWinner);
+                if (countWinner === 3){
+                    if (isPlayerOneTurn){
+                        console.log('Player Num 1 Wins')  
+                     } else{
+                        console.log('Player Num 2 Wins')
+                     }
+                     gameOver = true;
+                     return;
+                }
+            }
         }
     }
-    }
-    if (countWinner === 3){
-            if (isPlayerOneTurn){
-                console.log('Player Num 1 Wins')  
-             } else{
-                console.log('Player Num 2 Wins')
-             }
-             gameOver = true;
-             return;
-        }
-    // for (let i = 0; i < WINNER_ARRAY_NUNBERS.length; i++){
-    //     console.log(WINNER_ARRAY_NUNBERS[0] + ' winner' + arrayNumbersGrid +' array');
-    //     if (WINNER_ARRAY_NUNBERS.includes(arrayNumbersGrid.join())){
-    //          if (isPlayerOneTurn){
-    //             console.log('Player Num 1 Wins')  
-    //          } else{
-    //             console.log('Player Num 2 Wins')
-    //          }
-    //          gameOver = true;
-    //          return;
-    //     }
-    //}
+    
+ 
     isPlayerOneTurn = !isPlayerOneTurn;
 }
   

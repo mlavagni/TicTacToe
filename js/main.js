@@ -21,24 +21,16 @@ let player  = {
 
 let isPlayerOneTurn = true;
 
-let boardEl = document.getElementById('board');
 /*----- cached element references -----*/
-
+const boardEl = document.getElementById('board');
 /*----- event listeners -----*/
 boardEl.addEventListener('click', handleLetterClick);
 /*----- functions -----*/
 function handleLetterClick(evt){
-    //console.log(evt.target.id);
     if(!gameOver) {
-    if (isPlayerOneTurn){
-        evt.target.textContent = player.one;
+        (isPlayerOneTurn) ? evt.target.textContent = player.one : evt.target.textContent = player.two;
+        findTheWinner();
     }
-    else{
-        evt.target.textContent = player.two;
-    }
-   
-    findTheWinner();
-}
 };
 
 function render(){

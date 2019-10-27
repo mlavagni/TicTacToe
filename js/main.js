@@ -12,6 +12,7 @@ const WINNER_ARRAY_NUNBERS = [
 var gameOver = false;
 const ROW_COUNT = 3;
 const COLUMN_COUNT = 3;
+const MAX_MOVES = 9;
 
 /*----- app's state (variables) -----*/
 let player  = {
@@ -21,6 +22,7 @@ let player  = {
 
 let isPlayerOneTurn = true;
 let boardCreaded = false;
+let numMoves = 0;
 
 /*----- cached element references -----*/
 const boardEl = document.getElementById('board');
@@ -37,14 +39,14 @@ function handleLetterClick(evt){
    console.log(evt.target.textContent);
     if (!checkIfChecked(evt)){
         if(!gameOver) {
-            (isPlayerOneTurn) ? evt.target.textContent = player.one : evt.target.textContent = player.two;
+           (isPlayerOneTurn) ? evt.target.textContent = player.one : evt.target.textContent = player.two;
             render();
         }
     }
 };
 
 function render(){
-    playerTurn.textContent = isPlayerOneTurn ? "Player 1 Turn" : "Player 2 Turn";
+   playerTurn.textContent = isPlayerOneTurn ? "Player 1 Turn" : "Player 2 Turn";
 
     if (!boardCreaded) createBoard();
     findTheWinner(addNumbersToArray());  
@@ -56,33 +58,32 @@ function addNumbersToArray(){
     for (let i = 0; i < allCellsGrid.length; i++ ){
         if (isPlayerOneTurn){
             if (player.one === allCellsGrid[i].textContent)
-                arrayNumbersGrid.push(allCellsGrid[i].id) 
+                arrayNumbersGrid.push(allCellsGrid[i].id)   
             }else if (player.two === allCellsGrid[i].textContent){
-                arrayNumbersGrid.push(allCellsGrid[i].id)
+                arrayNumbersGrid.push(allCellsGrid[i].id)   
             }     
     }
     return arrayNumbersGrid
 }
 
 function findTheWinner(arrayNumbersGrid){
+    
     for (let i = 0; i < WINNER_ARRAY_NUNBERS.length; i++){
         var countWinner = 0;
         for (let i2 = 0; i2 < arrayNumbersGrid.length; i2++){
             if (WINNER_ARRAY_NUNBERS[i].includes(arrayNumbersGrid[i2])){
-                //console.log( 'winner num ' + WINNER_ARRAY_NUNBERS[i] + ' array ' + arrayNumbersGrid[i2])
                 countWinner++;
-                //console.log('count winer ' + countWinner);
                 if (countWinner === 3){
                     if (isPlayerOneTurn){
                         winnerEl.textContent = "Player Num 1 Wins"; 
                         winnerEl.style.visibility =  'visible';
                         playerTurn.textContent = 'Game Over';
-                        playerTurn.style.backgroundColor = 'red';
+                        playerTurn.parentNode.classList = 'gameOver';
                      } else{
                         winnerEl.textContent = 'Player Num 2 Wins';
                         winnerEl.style.visibility =  'visible';
                         playerTurn.textContent = 'Game Over';
-                        playerTurn.style.backgroundColor = 'red';
+                        playerTurn.parentNode.classList = 'gameOver';
                      }
                      gameOver = true;
                      (gameOver) ? ressetEl.style.visibility = 'visible' : 'hidden';
@@ -91,9 +92,28 @@ function findTheWinner(arrayNumbersGrid){
             }
         }
     }
+    //console.log (arrayNumbersGrid.length);
+    if (arrayNumbersGrid.length > 0) {
+        numMoves++;
+        isPlayerOneTurn = !isPlayerOneTurn;
+        playerTurn.textContent = isPlayerOneTurn ? "Player 1 Turn" : "Player 2 Turn";
+        if (checkIfGameIsTide()) return;
+    }
     
- 
-    isPlayerOneTurn = !isPlayerOneTurn;
+}
+
+function checkIfGameIsTide(){
+    if (gameOver === false && numMoves === MAX_MOVES) {
+        gameOver=true;
+        (gameOver) ? ressetEl.style.visibility = 'visible' : 'hidden';
+        winnerEl.style.visibility =  'visible';
+        playerTurn.textContent = 'Game Over';
+        winnerEl.textContent = "No Winners 'Tie' ";
+        playerTurn.parentNode.classList = 'gameOver';
+        return true;
+    }else{
+        return false;
+    }
 }
 
 function createBoard() {
@@ -113,7 +133,7 @@ function createBoard() {
 
 function checkIfChecked(evt){
     let checked = evt.target.textContent;
-    return checked === "X" || checked === "O"?  true : false;
+    return checked === player.two || checked === player.one?  true : false;
 }
 
 function ressetGame(){
@@ -122,9 +142,10 @@ function ressetGame(){
     gameOver=false;
     winnerEl.style.visibility =  'hidden';
     ressetEl.style.visibility = 'hidden';
-    playerTurn.style.backgroundColor = 'cyan';
+    playerTurn.parentNode.classList.remove('gameOver');
     playerTurn.textContent = 'Player 1 Turn';
     winnerEl.textContent = '';
+    numMoves = 0;
     
     for (let i = 0; i < allCellsGrid.length; i++ ){
          allCellsGrid[i].textContent = '';

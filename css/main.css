@@ -27,23 +27,23 @@ h1{
     display: grid;
     grid-template-columns: 50px 50px 50px;
     justify-content: center;
-    font-size: 3rem;
+    font-size: 2.7rem;
     color: chartreuse;
 }
 #board{
     border: 8px solid #659DF7;
     margin: 0 auto;
-    width: 190px;
-    height: 190px; 
+    width: 195px;
+    height: 195px; 
     border-radius: 10px;
     padding: 0;
     background-color: black;
     justify-items: center;
-    margin-top: 70px;
+    margin-top: 30px;
 }
 
 navBar p {
-    margin-left: 50px;
+    margin: 20px auto;
     display: inline; 
     font-size: 2rem;
     padding: 10px;
@@ -61,25 +61,28 @@ p:hover{
     
 }
 
-
+.gameOver{
+    background-color: red; 
+    visibility: visible;
+}
 
 #winner{
     font-size: 3rem;
     border-radius: 20px;
     padding: 10px;
     background-color: darkgreen;
-    width: 40%;
+    width: 32%;
     margin: 20px auto;
 }
 
 .id1, .id2, .id3,.id4, .id5, .id6, .id7, .id8, .id9{
-    min-height: 50px;
-    min-width: 50px;
+    min-height: 55px;
+    min-width: 55px;
     border: 2px solid #659DF7;
 }
 
 .id1, .id4, .id7{
-    text-align: center;
+    /* text-align: center; */
     border-left: 0;
     border-right: 0;
 }

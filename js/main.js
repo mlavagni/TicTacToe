@@ -36,11 +36,12 @@ boardEl.addEventListener('click', handleLetterClick);
 ressetEl.addEventListener('click', ressetGame);
 /*----- functions -----*/
 function handleLetterClick(evt){
-   console.log(evt.target.textContent);
-    if (!checkIfChecked(evt)){
-        if(!gameOver) {
-           (isPlayerOneTurn) ? evt.target.textContent = player.one : evt.target.textContent = player.two;
-            render();
+    if (evt.target.classList[1] !== 'container'){
+        if (!checkIfChecked(evt)){
+            if(!gameOver) {
+                (isPlayerOneTurn) ? evt.target.textContent = player.one : evt.target.textContent = player.two;
+                render();
+            }
         }
     }
 };
@@ -92,7 +93,6 @@ function findTheWinner(arrayNumbersGrid){
             }
         }
     }
-    //console.log (arrayNumbersGrid.length);
     if (arrayNumbersGrid.length > 0) {
         numMoves++;
         isPlayerOneTurn = !isPlayerOneTurn;

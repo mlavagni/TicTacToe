@@ -27,23 +27,27 @@ const boardEl = document.getElementById('board');
 const allCellsGrid = boardEl.getElementsByTagName("div");
 const playerTurn = document.getElementById("player");
 const winnerEl = document.getElementById("winner");
+const ressetEl = document.getElementById("resset");
 
 /*----- event listeners -----*/
 boardEl.addEventListener('click', handleLetterClick);
-
+ressetEl.addEventListener('click', ressetGame);
 /*----- functions -----*/
 function handleLetterClick(evt){
-    if(!gameOver) {
-        (isPlayerOneTurn) ? evt.target.textContent = player.one : evt.target.textContent = player.two;
-        render();
+   console.log(evt.target.textContent);
+    if (!checkIfChecked(evt)){
+        if(!gameOver) {
+            (isPlayerOneTurn) ? evt.target.textContent = player.one : evt.target.textContent = player.two;
+            render();
+        }
     }
 };
 
 function render(){
-    if (!boardCreaded) createBoard();
-    findTheWinner(addNumbersToArray());
+    playerTurn.textContent = isPlayerOneTurn ? "Player 1 Turn" : "Player 2 Turn";
 
-    playerTurn.textContent = isPlayerOneTurn ? 1 : 2;
+    if (!boardCreaded) createBoard();
+    findTheWinner(addNumbersToArray());  
 }
 
 //adding numbers to the array to check in findThe Winner who won
@@ -71,10 +75,17 @@ function findTheWinner(arrayNumbersGrid){
                 if (countWinner === 3){
                     if (isPlayerOneTurn){
                         winnerEl.textContent = "Player Num 1 Wins"; 
+                        winnerEl.style.visibility =  'visible';
+                        playerTurn.textContent = 'Game Over';
+                        playerTurn.style.backgroundColor = 'red';
                      } else{
                         winnerEl.textContent = 'Player Num 2 Wins';
+                        winnerEl.style.visibility =  'visible';
+                        playerTurn.textContent = 'Game Over';
+                        playerTurn.style.backgroundColor = 'red';
                      }
                      gameOver = true;
+                     (gameOver) ? ressetEl.style.visibility = 'visible' : 'hidden';
                      return;
                 }
             }
@@ -93,13 +104,31 @@ function createBoard() {
             keyNumber++;
             let divEl = document.createElement('div');
             divEl.setAttribute("id",keyNumber.toString());
-            //divEl.setAttribute("class",'"ticTic');
             divEl.classList.add(`id${keyNumber.toString()}`,'"ticTic');
-            //divEl.textContent = keyNumber;
             boardEl.appendChild(divEl);
         }
     }
     boardCreaded = true;
+}
+
+function checkIfChecked(evt){
+    let checked = evt.target.textContent;
+    return checked === "X" || checked === "O"?  true : false;
+}
+
+function ressetGame(){
+    isPlayerOneTurn = true;
+    boardCreaded = true; 
+    gameOver=false;
+    winnerEl.style.visibility =  'hidden';
+    ressetEl.style.visibility = 'hidden';
+    playerTurn.style.backgroundColor = 'cyan';
+    playerTurn.textContent = 'Player 1 Turn';
+    winnerEl.textContent = '';
+    
+    for (let i = 0; i < allCellsGrid.length; i++ ){
+         allCellsGrid[i].textContent = '';
+    }     
 }
 
 render();

@@ -9,7 +9,7 @@ const WINNER_ARRAY_NUNBERS = [
     ['1', '5', '9'],
     ['3', '5', '7'],
 ];
-var gameOver = false;
+var gameOver = true;
 const ROW_COUNT = 3;
 const COLUMN_COUNT = 3;
 const MAX_MOVES = 9;
@@ -33,10 +33,12 @@ const allCellsGrid = boardEl.getElementsByTagName("div");
 const playerTurn = document.getElementById("player");
 const winnerEl = document.getElementById("winner");
 const ressetEl = document.getElementById("resset");
+const newGameEl = document.getElementById("newGame");
 
 /*----- event listeners -----*/
 boardEl.addEventListener('click', handleLetterClick);
 ressetEl.addEventListener('click', ressetGame);
+newGameEl.addEventListener('click', newGame);
 /*----- functions -----*/
 function handleLetterClick(evt){
     if (evt.target.classList[1] !== 'container'){
@@ -144,7 +146,13 @@ function checkIfChecked(evt){
 }
 
 function ressetGame(){
-   // location.reload();
+   location.reload();
+   
+}
+
+function newGame(){
+    gameOver = false;
+
     isPlayerOneTurn = true;
     boardCreaded = true; 
     gameOver=false;
@@ -157,7 +165,6 @@ function ressetGame(){
     
     for (let i = 0; i < allCellsGrid.length; i++ ){
          allCellsGrid[i].textContent = '';
-    }     
+    }  
 }
-
 render();

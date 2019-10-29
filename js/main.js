@@ -17,12 +17,15 @@ const MAX_MOVES = 9;
 /*----- app's state (variables) -----*/
 let player  = {
     one: 'O',
-    two: 'X'
+    scoreOne: 0,
+    two: 'X',
+    scoreTwo: 0
 }
 
 let isPlayerOneTurn = true;
 let boardCreaded = false;
 let numMoves = 0;
+
 
 /*----- cached element references -----*/
 const boardEl = document.getElementById('board');
@@ -80,11 +83,15 @@ function findTheWinner(arrayNumbersGrid){
                         winnerEl.style.visibility =  'visible';
                         playerTurn.textContent = 'Game Over';
                         playerTurn.parentNode.classList = 'gameOver';
+                        player.scoreOne += 1;
+                        document.getElementById("score1").textContent = player.scoreOne;
                      } else{
                         winnerEl.textContent = 'Player Num 2 Wins';
                         winnerEl.style.visibility =  'visible';
                         playerTurn.textContent = 'Game Over';
                         playerTurn.parentNode.classList = 'gameOver';
+                        player.scoreTwo += 1;
+                        document.getElementById("score2").textContent = player.scoreTwo;
                      }
                      gameOver = true;
                      (gameOver) ? ressetEl.style.visibility = 'visible' : 'hidden';
@@ -137,6 +144,7 @@ function checkIfChecked(evt){
 }
 
 function ressetGame(){
+   // location.reload();
     isPlayerOneTurn = true;
     boardCreaded = true; 
     gameOver=false;

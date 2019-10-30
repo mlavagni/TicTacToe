@@ -1,5 +1,5 @@
 /*----- constants -----*/
-const WINNER_ARRAY_NUNBERS = [
+const WIN_NUMS = [
     ['1', '2', '3'],
     ['4', '5', '6'],
     ['7', '8', '9'],
@@ -74,41 +74,43 @@ function addNumbersToArray(){
 
 function findTheWinner(arrayNumbersGrid){
     
-    for (let i = 0; i < WINNER_ARRAY_NUNBERS.length; i++){
-        var countWinner = 0;
-        for (let i2 = 0; i2 < arrayNumbersGrid.length; i2++){
-            if (WINNER_ARRAY_NUNBERS[i].includes(arrayNumbersGrid[i2])){
-                countWinner++;
-                if (countWinner === 3){
-                    if (isPlayerOneTurn){
-                        winnerEl.textContent = "Player Num 1 Wins"; 
-                        winnerEl.style.visibility =  'visible';
-                        playerTurn.textContent = 'Game Over';
-                        playerTurn.parentNode.classList = 'gameOver';
-                        player.scoreOne += 1;
-                        document.getElementById("score1").textContent = player.scoreOne;
-                     } else{
-                        winnerEl.textContent = 'Player Num 2 Wins';
-                        winnerEl.style.visibility =  'visible';
-                        playerTurn.textContent = 'Game Over';
-                        playerTurn.parentNode.classList = 'gameOver';
-                        player.scoreTwo += 1;
-                        document.getElementById("score2").textContent = player.scoreTwo;
-                     }
-                     gameOver = true;
-                     (gameOver) ? ressetEl.style.visibility = 'visible' : 'hidden';
-                     return;
-                }
+    for (let i = 0; i < WIN_NUMS.length; i++){
+        if (allCellsGrid[WIN_NUMS[i][0]-1].textContent && allCellsGrid[WIN_NUMS[i][1]-1].textContent && allCellsGrid[WIN_NUMS[i][2]-1].textContent){
+           if (( allCellsGrid[WIN_NUMS[i][0]-1].textContent) === (allCellsGrid[WIN_NUMS[i][1]-1].textContent) &&
+            (allCellsGrid[WIN_NUMS[i][1]-1].textContent) === (allCellsGrid[WIN_NUMS[i][2]-1].textContent))
+            {
+                setWinner(arrayNumbersGrid);
+                gameOver = true;
+                (gameOver) ? ressetEl.style.visibility = 'visible' : 'hidden';
+                return;
             }
         }
     }
     if (arrayNumbersGrid.length > 0) {
+
         numMoves++;
         isPlayerOneTurn = !isPlayerOneTurn;
         playerTurn.textContent = isPlayerOneTurn ? "Player 1 Turn" : "Player 2 Turn";
         if (checkIfGameIsTide()) return;
-    }
-    
+      }
+}
+
+ function setWinner(arrayNumbersGrid){
+    if (isPlayerOneTurn){
+        winnerEl.textContent = "Player Num 1 Wins"; 
+        winnerEl.style.visibility =  'visible';
+        playerTurn.textContent = 'Game Over';
+        playerTurn.parentNode.classList = 'gameOver';
+        player.scoreOne += 1;
+        document.getElementById("score1").textContent = player.scoreOne;
+    } else{
+        winnerEl.textContent = 'Player Num 2 Wins';
+        winnerEl.style.visibility =  'visible';
+        playerTurn.textContent = 'Game Over';
+        playerTurn.parentNode.classList = 'gameOver';
+        player.scoreTwo += 1;
+        document.getElementById("score2").textContent = player.scoreTwo;
+    } 
 }
 
 function checkIfGameIsTide(){
@@ -167,4 +169,6 @@ function newGame(){
          allCellsGrid[i].textContent = '';
     }  
 }
+
+
 render();
